@@ -1,0 +1,49 @@
+Find the largest pair sum in an unsorted array
+
+#include <stdio.h> 
+#include <limits.h>  
+  
+/* Function to print the second largest elements */
+int findLargestSumPair(int arr[], int n) 
+{ 
+    int i, first, second; 
+  
+    /* There should be atleast two elements */
+    if (n < 2) 
+    { 
+        printf(" Invalid Input "); 
+        return; 
+    } 
+  
+    first = second = INT_MIN; 
+    for (i = 0; i < n ; i ++) 
+    { 
+        /* If current element is greater than first 
+           then update both first and second */
+        if (arr[i] > first) 
+        { 
+            second = first; 
+            first = arr[i]; 
+        } 
+  
+        /* If arr[i] is in between first and  
+           second then update second  */
+        else if (arr[i] > second && arr[i] != first) 
+            second = arr[i]; 
+    } 
+        return (first + second); 
+} 
+  
+/* Driver program to test above function */
+int main() 
+{ 
+    int arr[] = {12, 34, 10, 6, 40}; 
+    int n = sizeof(arr)/sizeof(arr[0]); 
+    cout << "Max Pair Sum is " << findLargestSumPair(arr, n); 
+    return 0; 
+} 
+
+Output :
+Max Pair Sum is 74
+Time complexity of above solution is O(n).
+Auxiliary Space : O(1)
