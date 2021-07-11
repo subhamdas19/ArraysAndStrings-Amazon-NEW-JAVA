@@ -1,5 +1,7 @@
 Approach 2:
 
+https://algorithms.tutorialhorizon.com/find-the-two-repeating-elements-in-a-given-array-6-approaches/
+
 Using Hash Map
 
     This solution will work even if all the numbers are not in the range of 1 to n.
