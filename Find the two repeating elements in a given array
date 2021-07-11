@@ -1,0 +1,140 @@
+Approach 2:
+
+Using Hash Map
+
+    This solution will work even if all the numbers are not in the range of 1 to n.
+    Keep the count of each element in the Hash Map.
+    Print the elements which has count = 2.
+
+Time Complexity: O(N),  Space Complexity: O(N)
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
+
+public class TwoRepeatingHashMap {
+    public static void twoElements(int [] A){
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i <A.length ; i++) {
+            if(map.containsKey(A[i])){
+                int count = map.get(A[i]);
+                map.put(A[i],++count);
+            }else
+                map.put(A[i],1);
+
+        }
+        System.out.print("Repeated Elements are : ");
+        Set set = map.keySet();
+        Iterator<Integer> iterator = set.iterator();
+        while(iterator.hasNext()){
+            int key = iterator.next();
+            if(map.get(key)==2){
+                System.out.print(key + " ");
+            }
+        }
+    }
+    public static void main(String[] args) {
+        int [] A = {1,5,2,4,8,9,3,1,4,0};
+        twoElements(A);
+    }
+}
+view raw
+TwoRepeatingHashMap.java hosted with ❤ by GitHub 
+
+Approach 3:
+
+Using Math’s Formula:
+
+    This solution will work only if all the numbers are in the range of 1 to n and are >0
+    Let’s say two repeated elements are a, b
+    Sum of 1 to n elements = S, Sum of all array elements = X, so a + b = X-S
+    Product of 1 to n elements = n!, Product of all array elements = Y, so a * b = Y/n!
+    Now we have 2 equations and 2 unknowns , we can solve to get a and b
+    We know that a – b = sqrt( (a + b)^2 – 4ab )
+
+Example:
+
+1.	int [] A = {1,4,5,6,3,2,5,2};
+int n = 6;
+2.	S = n*(n+1)/2 = 6 * 7/2 = 21
+3.	X (sum of all array elements) = 28
+4.	a + b = 28 – 21 = 7
+5.	Product of 1 to 6  = !6 = 720
+6.	Y (Product of all array elements) = 7200
+7.	a * b = 7200/720 = 10
+8.	So now, a + b = 7 and a * b = 10
+9.	a - b = sqrt( (a + b)^2 - 4ab )
+10.	a – b = sqrt(7*7 – 4*10) = sqrt(49-40) = sqrt(9) = 3
+11.	a = (7 + 3)/2 = 5
+12.	b = 7-5 = 2
+13.	Elements are 5, 2
+
+Time Complexity: O(N),  Space Complexity: O(1)
+
+Code:
+public class TwoRepeatingByFormula {
+    public static void twoElements(int [] A, int n){
+        int a,b;
+        int X =0;
+        int Y =1;
+        int S = n*(n+1)/2;
+        int fact = factorial(n);
+        for (int i = 0; i <A.length ; i++) {
+            X += A[i];
+            Y *= A[i];
+        }
+        int sum = X - S;
+        int product = Y/fact;
+        int subtract = (int)Math.sqrt(sum*sum - 4*product);
+
+        a = (sum + subtract)/2;
+        b = sum - a;
+
+        System.out.println("Two Repeating Elements are: " + a + " and " + b);
+
+    }
+    static int factorial(int n){
+        if(n==0)
+            return 1;
+        else
+            return n*factorial(n-1);
+    }
+
+    public static void main(String[] args) {
+        int [] A = {1,4,5,6,3,2,5,2};
+        int n = 6;
+        twoElements(A, n);
+    }
+}
+view raw
+TwoRepeatingByFormula.java hosted with ❤ by GitHub 
+
+
+Approach 6:
+
+ Using Sorting
+
+    This solution will work even if all the numbers are not in the range of 1 to n.
+    Sort the array, this will bring all the repeated elements together.
+    Now traverse the array and compare the adjacent elements and print them if they are same.
+
+Time Complexity: O(nlogn),  Space Complexity: O(1)
+
+Code:
+import java.util.*;
+
+public class TwoRepeatingSorting {
+    
+    public static void twoRepeating(int [] A){
+        Arrays.sort(A);
+        System.out.print("Repeated Elements are: ");
+        for (int i = 0; i <A.length-1 ; i++) {
+            if(A[i]==A[i+1])
+                System.out.print(A[i] + " ");
+        }
+    }
+    public static void main(String[] args) {
+        int [] A = {1,4,5,6,3,2,5,2};
+        twoRepeating(A);
+    }
+}
