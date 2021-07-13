@@ -1,0 +1,150 @@
+Algorithm: 
+
+    hasArrayTwoCandidates (A[], ar_size, sum)
+    Sort the array in non-decreasing order.
+    Initialize two index variables to find the candidate 
+    elements in the sorted array. 
+        Initialize first to the leftmost index: l = 0
+        Initialize second the rightmost index: r = ar_size-1
+    Loop while l < r. 
+        If (A[l] + A[r] == sum) then return 1
+        Else if( A[l] + A[r] < sum ) then l++
+        Else r–
+    No candidates in the whole array – return 0
+
+// Java program to check if given array
+// has 2 elements whose sum is equal
+// to the given value
+import java.util.*;
+ 
+class GFG {
+    // Function to check if array has 2 elements
+    // whose sum is equal to the given value
+    static boolean hasArrayTwoCandidates(
+        int A[],
+        int arr_size, int sum)
+    {
+        int l, r;
+ 
+        /* Sort the elements */
+        Arrays.sort(A);
+ 
+        /* Now look for the two candidates
+        in the sorted array*/
+        l = 0;
+        r = arr_size - 1;
+        while (l < r) {
+            if (A[l] + A[r] == sum)
+                return true;
+            else if (A[l] + A[r] < sum)
+                l++;
+            else // A[i] + A[j] > sum
+                r--;
+        }
+        return false;
+    }
+ 
+    // Driver code
+    public static void main(String args[])
+    {
+        int A[] = { 1, 4, 45, 6, 10, -8 };
+        int n = 16;
+        int arr_size = A.length;
+ 
+        // Function calling
+        if (hasArrayTwoCandidates(A, arr_size, n))
+            System.out.println("Array has two "
+                               + "elements with given sum");
+        else
+            System.out.println("Array doesn't have "
+                               + "two elements with given sum");
+    }
+}
+
+Output: 
+
+Array has two elements with the given sum
+
+Complexity Analysis:  
+
+    Time Complexity: Depends on what sorting algorithm we use. 
+        If Merge Sort or Heap Sort is used then (-)(nlogn) in the worst case.
+        If Quick Sort is used then O(n^2) in the worst case.
+    Auxiliary Space: This too depends on sorting algorithm. The auxiliary space is O(n) for merge sort and O(1) for Heap Sort.
+
+Method 2: Hashing.
+
+Approach: This problem can be solved efficiently by using the technique of hashing. Use a hash_map to check for the current array value x(let), if there exists a value target_sum-x which on adding to the former gives target_sum. This can be done in constant time. Let’s look at the following example. 
+
+    arr[] = {0, -1, 2, -3, 1} 
+    sum = -2 
+    Now start traversing: 
+    Step 1: For ‘0’ there is no valid number ‘-2’ so store ‘0’ in hash_map. 
+    Step 2: For ‘-1’ there is no valid number ‘-1’ so store ‘-1’ in hash_map. 
+    Step 3: For ‘2’ there is no valid number ‘-4’ so store ‘2’ in hash_map. 
+    Step 4: For ‘-3’ there is no valid number ‘1’ so store ‘-3’ in hash_map. 
+    Step 5: For ‘1’ there is a valid number ‘-3’ so answer is 1, -3 
+
+Algorithm:  
+
+
+    Initialize an empty hash table s.
+    Do following for each element A[i] in A[] 
+        If s[x – A[i]] is set then print the pair (A[i], x – A[i])
+        Insert A[i] into s.
+
+Pseudo Code :  
+
+unordered_set s
+for(i=0 to end)
+  if(s.find(target_sum - arr[i]) == s.end)
+    insert(arr[i] into s)
+  else 
+    print arr[i], target-arr[i]
+
+// Java implementation using Hashing
+import java.io.*;
+import java.util.HashSet;
+ 
+class PairSum {
+    static void printpairs(int arr[], int sum)
+    {
+        HashSet<Integer> s = new HashSet<Integer>();
+        for (int i = 0; i < arr.length; ++i)
+        {
+            int temp = sum - arr[i];
+ 
+            // checking for condition
+            if (s.contains(temp)) {
+                System.out.println(
+                    "Pair with given sum "
+                    + sum + " is (" + arr[i]
+                    + ", " + temp + ")");
+            }
+            s.add(arr[i]);
+        }
+    }
+ 
+    // Driver Code
+    public static void main(String[] args)
+    {
+        int A[] = { 1, 4, 45, 6, 10, 8 };
+        int n = 16;
+        printpairs(A, n);
+    }
+}
+ 
+// This article is contributed by Aakash Hasija
+
+Output: 
+
+Pair with given sum 16 is (10, 6)
+
+Complexity Analysis:  
+
+    Time Complexity: O(n). 
+    As the whole array is needed to be traversed only once.
+    Auxiliary Space: O(n). 
+    A hash map has been used to store array elements.
+    
+    https://www.geeksforgeeks.org/given-an-array-a-and-a-number-x-check-for-pair-in-a-with-sum-as-x/
