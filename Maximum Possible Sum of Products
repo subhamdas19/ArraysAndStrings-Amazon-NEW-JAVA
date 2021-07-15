@@ -1,0 +1,41 @@
+This is same as Maximum Sum of Products of Two Arrays
+Check it from geeksforgeeks.
+// CPP program to calculate maximum sum 
+// of products of two arrays 
+#include<bits/stdc++.h> 
+using namespace std; 
+
+	// Function that calculates maximum sum 
+	// of products of two arrays 
+	int maximumSOP(int a[], int b[],int n) 
+	{ 
+		// Variable to store the sum of 
+		// products of array elements 
+		int sop = 0; 
+
+		// length of the arrays 
+		 
+
+		// Sorting both the arrays 
+		sort(a,a+n); 
+		sort(b,b+n); 
+		
+
+		// Traversing both the arrays 
+		// and calculating sum of product 
+		for (int i = 0; i <n; i++) { 
+			sop += a[i] * b[i]; 
+		} 
+
+		return sop; 
+	} 
+
+	// Driver code 
+	int main() 
+	{ 
+		int A[] = { 1, 2, 3 }; 
+		int B[] = { 4, 5, 1 }; 
+        int n = sizeof(A)/sizeof(A[0]); 
+		cout<<maximumSOP(A, B,n); 
+		return 0; 
+	}
