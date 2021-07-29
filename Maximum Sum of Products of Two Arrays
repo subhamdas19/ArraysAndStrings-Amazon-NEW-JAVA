@@ -1,0 +1,53 @@
+The idea is to observe that product of two maximum number will contribute toward the maximum sum of the product. So the idea is to: 
+ 
+
+    Sort both the arrays.
+    Traverse the arrays, and calculate the sum of products of array elements that are at the same index.
+
+Below is the implementation of the above approach: 
+ 
+
+
+// Java program to calculate maximum sum
+// of products of two arrays
+ 
+import java.io.*;
+import java.util.*;
+public class GFG {
+ 
+    // Function that calculates maximum sum
+    // of products of two arrays
+    static int maximumSOP(int[] a, int[] b)
+    {
+        // Variable to store the sum of
+        // products of array elements
+        int sop = 0;
+ 
+        // length of the arrays
+        int n = a.length;
+ 
+        // Sorting both the arrays
+        Arrays.sort(a);
+        Arrays.sort(b);
+ 
+        // Traversing both the arrays
+        // and calculating sum of product
+        for (int i = 0; i < n; i++) {
+            sop += a[i] * b[i];
+        }
+ 
+        return sop;
+    }
+ 
+    // Driver code
+    public static void main(String args[])
+    {
+        int[] A = { 1, 2, 3 };
+        int[] B = { 4, 5, 1 };
+ 
+        System.out.println(maximumSOP(A, B));
+    }
+}
+Output: 
+
+24
